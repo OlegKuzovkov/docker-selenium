@@ -37,6 +37,10 @@ while True:
     print('Got connection from', address)
     command = str(connection.recv(buffer_size))
     if 'START_VIDEO' in command:
+        if os.path.isfile(default_video_file_location):
+            os.remove(default_video_file_location)
+        if os.path.isfile(default_temp_video_file_location):
+            os.remove(default_temp_video_file_location)
         command = command[len('START_VIDEO')+4:len(command)-2] + " %s &" % default_temp_video_file_location
         os.system(command)
         if not wait_for_process_exists('ffmpeg'):
@@ -53,7 +57,6 @@ while True:
                 copyfile(default_temp_video_file_location, default_video_file_location)
                 time.sleep(1)
                 if os.path.getsize(default_video_file_location) == os.path.getsize(default_temp_video_file_location):
-                    os.remove(default_temp_video_file_location)
                     break
                 if datetime.now() - start_time > timedelta(seconds=max_video_wait_time):
                     break
@@ -63,6 +66,5 @@ while True:
                 connection.send(file_bytes)
                 file_bytes = file_obj.read(buffer_size)
             file_obj.close()
-            os.remove(default_video_file_location)
     connection.close()
 
