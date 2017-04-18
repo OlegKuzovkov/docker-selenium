@@ -1,5 +1,9 @@
-FROM selenium/node-chrome:2.53.0
-MAINTAINER Selenium <selenium-developers@googlegroups.com>
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# NOTE: DO *NOT* EDIT THIS FILE.  IT IS GENERATED.
+# PLEASE UPDATE Dockerfile.txt INSTEAD OF THIS FILE
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+FROM selenium/node-chrome:3.3.1-cesium
+MAINTAINER Oleg Kuzovkov <oleh@thirdshelf.com>
 
 USER root
 
@@ -7,13 +11,10 @@ USER root
 # VNC
 #=====
 RUN apt-get update -qqy \
-  && DEBIAN_FRONTEND=noninteractive apt-get -qqy install software-properties-common python-software-properties \
-  && DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:djcj/hybrid \
   && apt-get -qqy install \
-    x11vnc \
-    ffmpeg \
-  && rm -rf /var/lib/apt/lists/* \
-  && mkdir -p ~/.vnc \
+  x11vnc \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
+  && mkdir -p /root/.vnc \
   && x11vnc -storepasswd secret ~/.vnc/passwd
 
 #=================
@@ -26,7 +27,7 @@ RUN locale-gen en_US.UTF-8 \
   && apt-get update -qqy \
   && apt-get -qqy --no-install-recommends install \
     language-pack-en \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 #=======
 # Fonts
@@ -38,7 +39,7 @@ RUN apt-get update -qqy \
     xfonts-75dpi \
     xfonts-cyrillic \
     xfonts-scalable \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 #=========
 # fluxbox
@@ -47,7 +48,7 @@ RUN apt-get update -qqy \
 RUN apt-get update -qqy \
   && apt-get -qqy install \
     fluxbox \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 #==============================
 # Python socket server client
