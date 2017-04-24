@@ -13,8 +13,6 @@ USER root
 RUN apt-get update -qqy \
   && apt-get -qqy install \
   x11vnc \
-  software-properties-common \
-  ffmgeg \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
   && mkdir -p /root/.vnc \
   && x11vnc -storepasswd secret ~/.vnc/passwd
@@ -55,6 +53,10 @@ RUN apt-get update -qqy \
 #==============================
 # Python socket server client
 #==============================
+RUN apt-get update -qqy \
+   && apt-get -qqy install software-properties-common
+RUN apt-get update -qqy \
+   && apt-get -qqy install ffmpeg
 COPY bin/EchoServer.py /opt/bin/EchoServer.py
 
 #==============================
