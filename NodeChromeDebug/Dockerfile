@@ -13,6 +13,8 @@ USER root
 RUN apt-get update -qqy \
   && apt-get -qqy install \
   x11vnc \
+  software-properties-common \
+  ffmgeg \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
   && mkdir -p /root/.vnc \
   && x11vnc -storepasswd secret ~/.vnc/passwd
