@@ -56,9 +56,6 @@ do
 done
 
 fluxbox -display $DISPLAY &
-
-mkdir /opt/bin/video
-mkdir /opt/bin/video/temp
 python3 /opt/bin/EchoServer.py &
 
 x11vnc -forever -usepw -shared -rfbport 5900 -display $DISPLAY &

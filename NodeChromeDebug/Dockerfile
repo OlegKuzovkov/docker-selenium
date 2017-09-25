@@ -48,6 +48,17 @@ RUN apt-get update -qqy \
     fluxbox \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
+#==============================
+# Python socket server client
+#==============================
+RUN apt-get update -qqy \
+   && apt-get -qqy install software-properties-common
+RUN apt-get update -qqy \
+   && apt-get -qqy install ffmpeg
+COPY bin/EchoServer.py /opt/bin/EchoServer.py
+RUN mkdir /opt/bin/video
+RUN mkdir /opt/bin/video/temp
+
 USER seluser
 
 #==============================
@@ -57,15 +68,6 @@ USER seluser
 
 RUN mkdir -p ~/.vnc \
   && x11vnc -storepasswd secret ~/.vnc/passwd
-
-#==============================
-# Python socket server client
-#==============================
-RUN apt-get update -qqy \
-   && apt-get -qqy install software-properties-common
-RUN apt-get update -qqy \
-   && apt-get -qqy install ffmpeg
-COPY bin/EchoServer.py /opt/bin/EchoServer.py
 
 #==============================
 # Scripts to run Selenium Node
