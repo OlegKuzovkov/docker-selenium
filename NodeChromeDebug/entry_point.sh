@@ -56,7 +56,7 @@ do
 done
 
 fluxbox -display $DISPLAY &
-python3 /opt/bin/EchoServer.py &
+sudo python3 /opt/bin/EchoServer.py &
 
 x11vnc -forever -usepw -shared -rfbport 5900 -display $DISPLAY &
 
